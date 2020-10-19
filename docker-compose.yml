@@ -10,19 +10,24 @@ services:
       - '3000:3000'
     volumes:
       - '.:/bt_node_sub'
-    environment:
-      - 'DATABASE_PASSWORD=postgres'
     tty: true
     stdin_open: true
-  #   depends_on:
-  #     - db
-  #   links:
-  #     - db
+    depends_on:
+      - db
+    links:
+      - db
 
-  # db:
-  #   image: mysql:5.7
-  #   volumes:
-  #     - 'db-data:/var/lib/mysql'
-  #   environment:
-  #     - 'MYSQL_DATABASE: 'db_name'
-  #     - 'MYSQL_ROOT_PASSWORD: 'mysql'
+  db:
+    image: mysql:5.7
+    volumes:
+      - './db/conf/my.cnf:/etc/mysql/conf.d/mysql.cnf'
+      - './db/initial_db:/docker-entrypoint-initdb.d'
+      - 'db-data:/var/lib/mysql'
+    environment:
+      - 'MYSQL_DATABASE=${MYSQL_DATABASE}'
+      - 'MYSQL_USER=${MYSQL_USER}'
+      - 'MYSQL_PASSWORD=${MYSQL_PASSWORD}'
+      - 'MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}'
+      - 'TZ="Asia/Tokyo"'
+    ports:
+      - '3306:3306'
