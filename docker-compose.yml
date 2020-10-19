@@ -5,6 +5,7 @@ volumes:
 
 services:
   web:
+    container_name: web_container
     build: .
     ports:
       - '3000:3000'
@@ -18,6 +19,7 @@ services:
       - db
 
   db:
+    container_name: db_container
     image: mysql:5.7
     volumes:
       - './db/conf/my.cnf:/etc/mysql/conf.d/mysql.cnf'
