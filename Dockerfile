@@ -5,4 +5,4 @@ COPY package*.json /bt_node_sub/
 RUN npm install
 
 EXPOSE 3000
-CMD [ "node", "app/server.js" ]
+CMD [ "node", "server.js" ]
