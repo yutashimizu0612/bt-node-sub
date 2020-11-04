@@ -14,7 +14,6 @@ app.get('/tests', async (req, res) => {
     if (error) {
       console.log('error: ' + error);
     }
-    console.log('results', results);
     res.render('index.ejs', { tests: results });
   });
   connection.end();
