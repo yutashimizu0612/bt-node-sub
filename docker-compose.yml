@@ -6,29 +6,28 @@ volumes:
 services:
   web:
     container_name: web_container
-    build: .
+    build: ./app
     ports:
       - '3000:3000'
     volumes:
-      - '.:/bt_node_sub'
+      - './app:/app'
     tty: true
     stdin_open: true
     depends_on:
       - db
     links:
-      - db
+      - db:db
 
   db:
     container_name: db_container
     image: mysql:5.7
     volumes:
-      - './db/conf/my.cnf:/etc/mysql/conf.d/mysql.cnf'
-      - './db/initial_db:/docker-entrypoint-initdb.d'
+      - './docker/db/conf/my.cnf:/etc/mysql/conf.d/mysql.cnf'
+      - './docker/db/initial_db:/docker-entrypoint-initdb.d'
       - 'db-data:/var/lib/mysql'
     environment:
       - 'MYSQL_DATABASE=${MYSQL_DATABASE}'
       - 'MYSQL_USER=${MYSQL_USER}'
-      - 'MYSQL_PASSWORD=${MYSQL_PASSWORD}'
       - 'MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}'
       - 'TZ="Asia/Tokyo"'
     ports:
