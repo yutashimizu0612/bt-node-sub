@@ -13,8 +13,8 @@ services:
       - './app:/app'
     tty: true
     stdin_open: true
-    links:
-      - db:db
+    depends_on:
+      - db
 
   db:
     container_name: db_container
