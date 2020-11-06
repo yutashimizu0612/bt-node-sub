@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css"
+    />
+    <style>
+      .wrapper {
+        margin: 0 auto;
+        width: 600px;
+      }
+      .test-table {
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <table class="table test-table">
+        <thead>
+          <tr>
+            <th>id</th>
+            <th>name</th>
+            <th>description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% tests.forEach((test) => { %>
+          <tr>
+            <td><%- test.id %></td>
+            <td><%- test.name %></td>
+            <td><%- test.description %></td>
+          </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>

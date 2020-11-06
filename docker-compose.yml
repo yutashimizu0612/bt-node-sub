@@ -1,0 +1,32 @@
+version: '3'
+
+volumes:
+  db-data:
+
+services:
+  web:
+    container_name: web_container
+    build: ./app
+    ports:
+      - '3000:3000'
+    volumes:
+      - './app:/app'
+    tty: true
+    stdin_open: true
+    depends_on:
+      - db
+
+  db:
+    container_name: db_container
+    image: mysql:5.7
+    volumes:
+      - './docker/db/conf/my.cnf:/etc/mysql/conf.d/mysql.cnf'
+      - './docker/db/initial_db:/docker-entrypoint-initdb.d'
+      - 'db-data:/var/lib/mysql'
+    environment:
+      - 'MYSQL_DATABASE=${MYSQL_DATABASE}'
+      - 'MYSQL_USER=${MYSQL_USER}'
+      - 'MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}'
+      - 'TZ="Asia/Tokyo"'
+    ports:
+      - '3306:3306'
